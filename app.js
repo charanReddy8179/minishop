@@ -1,7 +1,7 @@
 const products = [
-  { id: 1, name: "Shirt", price: 999, img: "images/shirt.png" },
-  { id: 2, name: "Watch", price: 1999, img: "images/watch.png" },
-  { id: 3, name: "Earbuds", price: 2499, img: "images/buds.png" }
+  { id: 1, name: "Shirt", price: 999, img: "shirt.png" },
+  { id: 2, name: "Watch", price: 1999, img: "watch.png" },
+  { id: 3, name: "Earbuds", price: 2499, img: "buds.png" }
 ];
 
 const productDiv = document.getElementById("products");
@@ -32,3 +32,4 @@ function goToCart() {
 function goToOrders() {
   window.location.href = "orders.html";
 }
+
