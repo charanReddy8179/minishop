@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Orders</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>My Orders</h2>
+
+<div id="orders"></div>
+
+<script>
+/* -------- LOGIN CHECK -------- */
+let user = localStorage.getItem("user");
+if (!user) {
+  window.location.href = "login.html";
+}
+
+/* -------- LOAD ORDERS -------- */
+let ordersData = JSON.parse(localStorage.getItem("orders")) || [];
+let ordersDiv = document.getElementById("orders");
+
+if (ordersData.length === 0) {
+  ordersDiv.innerHTML = "<p>No orders found</p>";
+}
+
+/* -------- DISPLAY ORDERS -------- */
+ordersData.forEach((order, index) => {
+  let total = 0;
+  let itemsHTML = "";
+
+  order.items.forEach(item => {
+    total += item.price;
+    itemsHTML += `
+      <div class="order-item">
+        <p>${item.name} - ₹${item.price}</p>
+      </div>
+    `;
+  });
+
+  ordersDiv.innerHTML += `
+    <div class="order-card">
+      <h3>Order #${index + 1}</h3>
+      <p><b>Date:</b> ${order.time}</p>
+      ${itemsHTML}
+      <p><b>Total:</b> ₹${total}</p>
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>

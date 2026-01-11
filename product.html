@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="product-page">
+  <img id="pimg">
+  <h2 id="pname"></h2>
+  <h3 id="pprice"></h3>
+  <button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<script>
+let product = JSON.parse(localStorage.getItem("product"));
+
+if (!product) {
+  alert("No product selected");
+  window.location.href = "index.html";
+}
+
+pimg.src = product.img;
+pname.innerText = product.name;
+pprice.innerText = "₹" + product.price;
+
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Your Cart</h2>
+
+<div id="cart"></div>
+
+<button onclick="checkout()">Checkout</button>
+
+<script>
+/* -------- LOGIN CHECK -------- */
+let user = localStorage.getItem("user");
+if (!user) {
+  window.location.href = "login.html";
+}
+
+/* -------- LOAD CART -------- */
+let cartData = JSON.parse(localStorage.getItem("cart")) || [];
+let cartDiv = document.getElementById("cart");
+let total = 0;
+
+if (cartData.length === 0) {
+  cartDiv.innerHTML = "<p>Your cart is empty</p>";
+}
+
+/* -------- DISPLAY CART -------- */
+cartData.forEach(item => {
+  total += item.price;
+
+  cartDiv.innerHTML += `
+    <p>${item.name} - ₹${item.price}</p>
+  `;
+});
+
+cartDiv.innerHTML += `<h3>Total: ₹${total}</h3>`;
+
+/* -------- CHECKOUT -------- */
+function checkout() {
+  if (cartData.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders.push({
+    items: cartData,
+    time: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+  localStorage.removeItem("cart");
+
+  window.location.href = "orders.html";
+}
+</script>
+
+</body>
+</html>
